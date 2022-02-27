@@ -1,0 +1,64 @@
+Martian Attack - Jagcode 2007 - Technical Notes
+-----------------------------------------------
+
+Unfortunately, I ran out of time, so it's a bit incomplete. That may
+cost some points, but there we go.
+
+Due to RL and other setbacks, this is about 2 weeks worth of
+investment. The game is simple but it came together fairly
+well and I was able to remove all but one known bug (and
+that one does not impact gameplay to any important degree).
+
+The game runs primarily on the 68k, this was done to speed
+development. The rotating base and planet are each 256 color
+CRY images, using independent palettes. A GPU program runs
+continuously, and triggers the blitter mid-frame, and at the
+end of the frame to load the appropriate palette in time.
+
+Everything else is drawn with the object processor, with
+the list regenerated each frame. The game logic runs
+after the interrupt routine completes, and then puts the
+68k back to sleep.
+
+I seriously ran out of time for the DSP code, so what is
+in there is a combination of the tone generator I started,
+and a simple noise generator that I dropped in two hours
+later when I realized how late it was. The 68k writes to
+a psuedo-register on the DSP which controls the volume
+of the noise, and it tweaks the pitch slightly at the same
+time. The DSP code simply feeds the DACs from the ROM
+waveform table at the appropriate interval, and decrements
+the volume continuously.
+
+So although some usage is simple, this program DOES
+demonstrate simultaneous use of the 68000, GPU, DSP, and
+blitter. ;)
+
+For interest's sake, most of the graphics were actually
+rendered in Second Life, and the Earth was captured via
+Google Earth (hey, I can see my house from here!) 
+
+Source code is offered under a free distribution but
+non-commercial use license. When I come back to it,
+I'll release the final code as well. Anyone is welcome
+to read the code, learn from it, steal ideas or even
+small fragments, but they need to talk to me before
+doing anything bigger than that. 
+
+Incidentally, this game will make you wish for autofire.
+And if you DO have it, the maximum fire rate is 30 shots
+per second on NTSC. ;)
+
+The game is not tested on PAL. I used the standard
+startup code so I hope it will work, but I don't have
+any way to try it.
+
+Developed under DOSBox 0.70 on Windows XP using the 
+standard Atari tools and BJL. Roughly 2100 lines of 
+68k assembly, 200 lines of DSP assembly, and 150 
+lines of GPU assembly, all hand coded. Total size
+with graphics is about 1MB.
+
+Runs on Project Tempest but the starfield does not 
+display. Real Jag is definately preferred.
+
